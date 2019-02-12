@@ -32,12 +32,12 @@ namespace Microsoft.Azure.WebJobs.Script.Rpc
         // probably some way of keeping track of the invocations
         private List<LanguageWorkerChannel> _channels = new List<LanguageWorkerChannel>();
 
-        public LanguageWorkerBuffer(IScriptEventManager eventManager, IObservable<FunctionRegistrationContext> functionRegistrations)
+        public LanguageWorkerBuffer(IScriptEventManager eventManager, IObservable<FunctionRegistrationContext> functionRegistrations, int numberWorkers)
         {
             _disposed = false;
             counter = 0;
             _eventManager = eventManager;
-
+            MaxNumberWorkers = numberWorkers;
             //_loadBalancerEvents = _eventManager.OfType<LoadBalancerEvent>();
 
             _functionRegistrations = functionRegistrations;

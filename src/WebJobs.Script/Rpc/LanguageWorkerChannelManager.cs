@@ -70,7 +70,9 @@ namespace Microsoft.Azure.WebJobs.Script.Rpc
 
         public LanguageWorkerBuffer CreateLanguageWorkerBuffer(IObservable<FunctionRegistrationContext> functionRegistrations)
         {
-            _buffer = new LanguageWorkerBuffer(_eventManager, functionRegistrations);
+            int max = 1;
+            int.TryParse(_environment.GetEnvironmentVariable("number_language_workers"), out max);
+            _buffer = new LanguageWorkerBuffer(_eventManager, functionRegistrations, max);
             return _buffer;
         }
 
@@ -167,6 +169,7 @@ namespace Microsoft.Azure.WebJobs.Script.Rpc
             {
                 initializedChannel.Dispose();
                 _workerChannels.Remove(workerId);
+                // remove it from the list in the buffers
                 return true;
             }
             return false;

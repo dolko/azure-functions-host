@@ -231,6 +231,8 @@ namespace Microsoft.Azure.WebJobs.Script
 
         internal static void AddLanguageWorkerChannelErrors(IFunctionDispatcher functionDispatcher, IDictionary<string, ICollection<string>> functionErrors)
         {
+            //functionDispatcher.Error
+
             foreach (KeyValuePair<string, LanguageWorkerState> kvp in functionDispatcher.LanguageWorkerChannelStates)
             {
                 string language = kvp.Key;
@@ -238,8 +240,8 @@ namespace Microsoft.Azure.WebJobs.Script
                 foreach (var functionRegistrationContext in workerState.GetRegistrations())
                 {
                     var exMessage = $"Failed to start language worker process for: {language}";
-                    var languageWorkerChannelException = workerState.Errors != null && workerState.Errors.Count > 0 ? new LanguageWorkerChannelException(exMessage, workerState.Errors[workerState.Errors.Count - 1]) : new LanguageWorkerChannelException(exMessage);
-                    Utility.AddFunctionError(functionErrors, functionRegistrationContext.Metadata.Name, Utility.FlattenException(languageWorkerChannelException, includeSource: false));
+                    //var languageWorkerChannelException = workerState.Errors != null && workerState.Errors.Count > 0 ? new LanguageWorkerChannelException(exMessage, workerState.Errors[workerState.Errors.Count - 1]) : new LanguageWorkerChannelException(exMessage);
+                    //Utility.AddFunctionError(functionErrors, functionRegistrationContext.Metadata.Name, Utility.FlattenException(languageWorkerChannelException, includeSource: false));
                 }
             }
         }

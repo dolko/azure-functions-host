@@ -13,10 +13,6 @@ namespace Microsoft.Azure.WebJobs.Script.Rpc
         private object _lock = new object();
         private IList<FunctionRegistrationContext> _registrations = new List<FunctionRegistrationContext>();
 
-        internal ILanguageWorkerChannel Channel { get; set; }
-
-        internal List<Exception> Errors { get; set; } = new List<Exception>();
-
         // Registered list of functions which can be replayed if the worker fails to start / errors
         internal ReplaySubject<FunctionRegistrationContext> Functions { get; set; } = new ReplaySubject<FunctionRegistrationContext>();
 
